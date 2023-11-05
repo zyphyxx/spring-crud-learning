@@ -1,4 +1,4 @@
-package com.zpx.gerenciadorDeTarefas.domain;
+package com.zpx.gerenciadorDeTarefas.entities;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.*;

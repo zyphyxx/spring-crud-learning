@@ -1,7 +1,7 @@
-package com.zpx.gerenciadorDeTarefas.controll;
+package com.zpx.gerenciadorDeTarefas.controllers;
 
-import com.zpx.gerenciadorDeTarefas.domain.Tarefas;
-import com.zpx.gerenciadorDeTarefas.service.TarefasService;
+import com.zpx.gerenciadorDeTarefas.entities.Tarefas;
+import com.zpx.gerenciadorDeTarefas.services.TarefasService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,41 +17,45 @@ import java.util.Optional;
 @RequestMapping("/tarefas")
 @Api(value = "Gerenciador de Tarefas")
 @CrossOrigin(origins = "*")
-public class GerenciadorControll {
+public class GerenciadorController {
 
     private final TarefasService service;
 
     @Autowired
-    public GerenciadorControll(TarefasService service) {
+    public GerenciadorController(TarefasService service) {
         this.service = service;
     }
 
     @PostMapping
     @ApiOperation(value = "Cria um item na lista de tarefas")
-    public ResponseEntity<Tarefas> create(@RequestBody Tarefas tarefas, UriComponentsBuilder uriComponentsBuilder) {
-        URI location = uriComponentsBuilder.path("/tarefas/{id}")
-                .buildAndExpand(service.createTask(tarefas)
-                        .getId()).toUri();
-        return ResponseEntity.created(location).body(service.createTask(tarefas));
+    public ResponseEntity<Tarefas> create(@RequestBody Tarefas tarefas, UriComponentsBuilder uriBuilder) {
+        Tarefas obj = service.createTask(tarefas);
+        URI uri = uriBuilder.path("/{id}")
+                .buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(obj);
     }
 
     @GetMapping
     @ApiOperation(value = " Lista todas as tarefas")
     public ResponseEntity<List<Tarefas>> list() {
-        return ResponseEntity.ok(service.listTask());
+        List<Tarefas> list = service.listTask();
+        return ResponseEntity.ok().body(list);
     }
 
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Retorna uma tarefa pela ID")
     public ResponseEntity<Optional<Tarefas>> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findById(id));
+        Optional<Tarefas> obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
 
     @PutMapping
     @ApiOperation(value = "Atualiza as tarefas")
     public ResponseEntity<Tarefas> update(@RequestBody Tarefas tarefas) {
-        return ResponseEntity.ok(service.updateTask(tarefas));
+        Tarefas obj = service.updateTask(tarefas);
+        return ResponseEntity.ok().body(obj);
     }
 
     @DeleteMapping

@@ -1,7 +1,8 @@
-package com.zpx.gerenciadorDeTarefas.service;
+package com.zpx.gerenciadorDeTarefas.services;
 
-import com.zpx.gerenciadorDeTarefas.domain.Tarefas;
-import com.zpx.gerenciadorDeTarefas.repository.TarefasRepository;
+import com.zpx.gerenciadorDeTarefas.entities.Tarefas;
+import com.zpx.gerenciadorDeTarefas.repositories.TarefasRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class TarefasService {
         this.repository = repository;
     }
 
+    @Transactional
     public Tarefas createTask(Tarefas tarefas) {
         return repository.save(tarefas);
     }
@@ -29,16 +31,16 @@ public class TarefasService {
     public Optional<Tarefas> findById(Long id) {
         return repository.findById(id);
     }
-
+    @Transactional
     public Tarefas updateTask(Tarefas tarefas) {
         return repository.save(tarefas);
     }
 
-
+    @Transactional
     public void deleteTask(Tarefas tarefas) {
         repository.delete(tarefas);
     }
-
+    @Transactional
     public void deleteTaskPerId(Long id) {
         repository.deleteById(id);
     }

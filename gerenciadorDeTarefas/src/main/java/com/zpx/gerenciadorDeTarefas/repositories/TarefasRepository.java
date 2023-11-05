@@ -1,6 +1,6 @@
-package com.zpx.gerenciadorDeTarefas.repository;
+package com.zpx.gerenciadorDeTarefas.repositories;
 
-import com.zpx.gerenciadorDeTarefas.domain.Tarefas;
+import com.zpx.gerenciadorDeTarefas.entities.Tarefas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

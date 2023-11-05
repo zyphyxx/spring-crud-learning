@@ -17,7 +17,7 @@ public class SweggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com/zpx/gerenciadorDeTarefas/controll/GerenciadorControll.java"))
+                .apis(RequestHandlerSelectors.basePackage("com/zpx/gerenciadorDeTarefas/controllers/GerenciadorControll.java"))
                 .paths(regex("/tarefas.*"))
                 .build();
     }
