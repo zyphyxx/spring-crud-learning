@@ -1,24 +1,32 @@
 package com.zpx.agendadecontatos.controllers;
 
-import com.zpx.agendadecontatos.Entities.Contact;
-import com.zpx.agendadecontatos.dto.ContactList;
-import com.zpx.agendadecontatos.services.ContactService;
-import jakarta.transaction.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zpx.agendadecontatos.entities.Contact;
+import com.zpx.agendadecontatos.repositories.ContactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
-@RequestMapping("lista")
+@RequestMapping("/contact")
 public class ContactController {
 
-    private ContactService service;
+    @Autowired
+    ContactRepository repository;
 
-    @Transactional
     @PostMapping
-    public ContactList CreateContact (@RequestBody Contact contact){
-        return service.CreateContact(contact);
+    public void myContacts (@RequestBody Contact contact){
+        var x = new Contact(contact);
+       repository.save(x);
     }
+
+
+
+
+
+
+
+
+
 
 }
