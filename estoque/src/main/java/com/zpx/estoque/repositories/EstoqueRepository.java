@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
+public interface EstoqueRepository extends JpaRepository <Estoque, Long> {
 
 
 

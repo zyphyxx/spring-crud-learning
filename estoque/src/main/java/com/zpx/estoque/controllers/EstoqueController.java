@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,13 @@ public class EstoqueController {
     public void salvar(@RequestBody Estoque produto){
         repository.save(produto);
     }
+
+  @GetMapping
+    public Optional<Estoque> buscar(Long id){
+        return repository.findById(id);
+
+  }
+
 
 
 

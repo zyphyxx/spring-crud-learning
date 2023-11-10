@@ -3,12 +3,11 @@ package com.zpx.estoque.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_estoque")
 @Data
-public class Estoque implements Serializable {
+public class Estoque {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
