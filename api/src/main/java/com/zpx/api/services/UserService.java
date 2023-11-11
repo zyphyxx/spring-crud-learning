@@ -15,13 +15,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
 
 
-    public UserService(UserRepository userRepository,TaskRepository taskRepository){
+    public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
-        this.taskRepository = taskRepository;
+
     }
 
 
