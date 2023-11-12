@@ -22,6 +22,9 @@ public class TaskService {
         return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada id: " + id + Task.class.getName()));
     }
 
+    public TaskService() {
+    }
+
     public List<Task> findAllbyUserId (Long id){
         List<Task> tasks = taskRepository.findByUser_Id(id);
         return tasks;
