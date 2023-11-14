@@ -1,14 +1,15 @@
 package com.zpx.api.services;
 
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.zpx.api.models.Task;
 import com.zpx.api.models.User;
 import com.zpx.api.repositories.TaskRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import com.zpx.api.services.exceptions.DataBindingViolationException;
+import com.zpx.api.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
@@ -18,18 +19,16 @@ public class TaskService {
     private UserService userService;
 
     public Task findById(Long id) {
-        Optional<Task> task = taskRepository.findById(id);
-        return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada id: " + id + Task.class.getName()));
+        Optional<Task> task = this.taskRepository.findById(id);
+
+        return task.orElseThrow(() -> new ObjectNotFoundException(
+                "Tarefa não encontrada! Id: " + id + ", Tipo: " + Task.class.getName()));
     }
 
-    public TaskService() {
-    }
-
-    public List<Task> findAllbyUserId (Long id){
-        List<Task> tasks = taskRepository.findByUser_Id(id);
+    public List<Task> findAllByUserId(Long userId) {
+        List<Task> tasks = this.taskRepository.findByUser_Id(userId);
         return tasks;
     }
-
     @Transactional
     public Task create(Task obj) {
         User user = this.userService.findById(obj.getUser().getId());
@@ -37,26 +36,20 @@ public class TaskService {
         obj.setUser(user);
         obj = this.taskRepository.save(obj);
         return obj;
-
     }
-
     @Transactional
-    public Task update (Task obj){
+    public Task update(Task obj) {
         Task newObj = findById(obj.getId());
         newObj.setDescription(obj.getDescription());
         return this.taskRepository.save(newObj);
     }
+    public void delete(Long id) {
+        findById(id);
+        try {
+            this.taskRepository.deleteById(id);
+        } catch (Exception e) {
 
-    @Transactional
-    public void delete (Long id){
-     findById(id);
-     try {
-         this.taskRepository.deleteById(id);
-     } catch (Exception e) {
-         throw new RuntimeException("Não é possivel deletar pois há entidades relacionadas");
-     }
-
+            throw new DataBindingViolationException("Não é possível excluir pois há entidades relacionadas!");
+        }
     }
-
-
 }
