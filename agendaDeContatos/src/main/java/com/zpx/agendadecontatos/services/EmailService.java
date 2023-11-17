@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ public class EmailService {
       return emailService.findEnderecoById(id);
     }
 
-    public Optional<Email> findAllEndereco (){
+    public List<Email> findAllEndereco (){
         return emailService.findAllEndereco();
     }
 

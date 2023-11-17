@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("contato/emails")
@@ -17,7 +18,7 @@ public class EmailController {
     private EmailService emailService;
 
     @GetMapping
-    public ResponseEntity<Email> findAllEndereco (){
+    public ResponseEntity<List<Email>> findAllEndereco (){
         return ResponseEntity.ok().build();
     }
 
