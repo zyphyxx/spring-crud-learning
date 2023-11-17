@@ -12,5 +12,5 @@ public class Phone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String endereco;
+    private String numero;
 }
