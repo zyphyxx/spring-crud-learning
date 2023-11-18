@@ -16,7 +16,7 @@ public class User {
 
     private String nome;
 
-    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tarefa> tarefas;
 
 }
