@@ -3,10 +3,12 @@ package com.zpx.proj_num_1.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "tb_tarefa")
 @Data
-public class Tarefa {
+public class Tarefa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
