@@ -30,13 +30,13 @@ public class UserService {
         return obj;
     }
 
-    public void updateUser(Long id) {
-        Optional<User> obj = userRepository.findById(id);
-        if (obj.isPresent()) {
-            userRepository.save(obj.get());
-        } else obj.orElseThrow(() -> new RuntimeException("Não foi possivel atualizar o usuario: " + id));
+    @Transactional
+    public void updateUser(User obj) {
+        User newObj = findById(obj.getId());
+        userRepository.save(newObj);
     }
 
+    @Transactional
     public void deleteUser(Long id) {
         Optional<User> obj = userRepository.findById(id);
         userRepository.delete(obj.get());
