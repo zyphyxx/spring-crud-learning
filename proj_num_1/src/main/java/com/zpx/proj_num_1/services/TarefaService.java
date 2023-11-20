@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,27 +15,31 @@ public class TarefaService {
     @Autowired
     private TarefaRepository tarefaRepository;
 
-    public List<Tarefa> findAll () {
+    public List<Tarefa> findAll() {
         return tarefaRepository.findAll();
     }
 
-    public Tarefa findById (Long id) {
-        Optional<Tarefa> obj = Optional.ofNullable(findById(id));
-        return obj.orElseThrow(() -> new RuntimeException("Usuario ou Tarefa não encontrada"));
+    public Tarefa findById(Long id) {
+        Optional<Tarefa> obj = tarefaRepository.findById(id);
+        return obj.orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
     }
 
     @Transactional
-    public List<Tarefa> createTarefa (Tarefa objs) {
-        List<Tarefa> newObjs = new ArrayList<>();
-        newObjs.add(objs);
-        return tarefaRepository.saveAll(newObjs);
+    public Tarefa createTarefa(Tarefa obj) {
+        obj.setUser(obj.getUser());
+        return tarefaRepository.save(obj);
     }
+    @Transactional
+    public void updateTarefa(Tarefa obj) {
+        Tarefa exitingTarefa = findById(obj.getId());
 
-    public Tarefa updateTarefa (Tarefa obj) {
-        Tarefa newObj = findById(obj.getId());
-        return tarefaRepository.save(newObj);
+        exitingTarefa.setTitulo(obj.getTitulo());
+        exitingTarefa.setDescricao(obj.getDescricao());
+        exitingTarefa.setValidade(obj.getValidade());
+        exitingTarefa.setUser(obj.getUser());
+
+        tarefaRepository.save(exitingTarefa);
     }
-
 
 
 }

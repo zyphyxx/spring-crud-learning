@@ -18,11 +18,11 @@ public class Tarefa implements Serializable {
     private String descricao;
     private String validade;
 
+
     @ManyToOne
     @JoinColumn (name = "user_id")
     private User user;
 
-    @ManyToOne
-    private Categoria categoria;
+
 
 }

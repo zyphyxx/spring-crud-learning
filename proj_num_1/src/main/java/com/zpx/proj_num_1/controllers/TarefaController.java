@@ -18,31 +18,31 @@ public class TarefaController {
     private TarefaService tarefaService;
 
     @GetMapping
-    public ResponseEntity<List<Tarefa>> findAll () {
+    public ResponseEntity<List<Tarefa>> findAll() {
         List<Tarefa> objs = tarefaService.findAll();
         return ResponseEntity.ok().body(objs);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tarefa> findById (@PathVariable Long id) {
+    public ResponseEntity<Tarefa> findById(@PathVariable Long id) {
         Tarefa obj = tarefaService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
 
     @PostMapping
-    public ResponseEntity<List<Tarefa>> createTarefa (@RequestBody Tarefa objs){
-         List<Tarefa> newObjs = tarefaService.createTarefa(objs);
+    public ResponseEntity<Tarefa> createTarefa(@RequestBody Tarefa objs) {
+        Tarefa newObjs = tarefaService.createTarefa(objs);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newObjs)
+                .buildAndExpand(newObjs.getId())
                 .toUri();
-         return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(newObjs);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tarefa> updateTarefa (@RequestBody Tarefa obj, @PathVariable Long id) {
+    public ResponseEntity<Void> updateTarefa(@RequestBody Tarefa obj, @PathVariable Long id) {
         obj.setId(id);
         tarefaService.updateTarefa(obj);
         return ResponseEntity.noContent().build();

@@ -32,14 +32,14 @@ public class UserService {
 
     @Transactional
     public void updateUser(User obj) {
-        User newObj = findById(obj.getId());
-        userRepository.save(newObj);
+        obj = findById(obj.getId());
+        userRepository.save(obj);
     }
 
     @Transactional
     public void deleteUser(Long id) {
-        Optional<User> obj = userRepository.findById(id);
-        userRepository.delete(obj.get());
+        User obj = findById(id);
+        userRepository.delete(obj);
     }
 
 }
