@@ -37,5 +37,10 @@ public class ContatosService {
         newObj.setNumeroCel(obj.getNumeroCel());
          contatosRepository.save(newObj);
     }
+    @Transactional
+    public void deleteContatos (Long id){
+       Contatos obj = findById(id);
+       contatosRepository.deleteById(obj.getId());
+    }
 
 }
