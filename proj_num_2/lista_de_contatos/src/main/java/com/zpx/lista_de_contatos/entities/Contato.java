@@ -1,25 +1,20 @@
 package com.zpx.lista_de_contatos.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "contatos")
-@Data
-public class Contatos {
+public class Contato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
-    private String nome;
+    private String celular;
 
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "numero_cel")
-    private String numeroCel;
-
-
 }
