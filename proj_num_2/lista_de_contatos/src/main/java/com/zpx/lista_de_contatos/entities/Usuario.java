@@ -5,22 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "usuarios")
 @Getter
 @Setter
-@Table(name = "usuarios")
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
 
     @OneToOne
-    @JoinColumn(name = "contatos_us",referencedColumnName = "id")
-    private Contato contato;
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco;
 
     @OneToOne
-    @JoinColumn(name = "enderecos_us",referencedColumnName = "id")
-    private Endereco endereco;
+    @JoinColumn(name = "contato_id", referencedColumnName = "id")
+    private Contato contato;
 }

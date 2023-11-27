@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "enderecos")
 @Getter
 @Setter
-@Table(name = "enderecos")
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String rua;

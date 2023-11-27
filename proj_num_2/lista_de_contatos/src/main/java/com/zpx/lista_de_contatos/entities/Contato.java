@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "contatos")
 @Getter
 @Setter
-@Table(name = "contatos")
 public class Contato {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String celular;
